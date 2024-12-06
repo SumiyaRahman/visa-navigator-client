@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
 import { FaUserPlus } from "react-icons/fa6";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   return (
     <div className="navbar px-5 py-5 md:px-8 container mx-auto">
       {/* Logo and Website Name */}
@@ -37,8 +39,34 @@ const Navbar = () => {
       {/* Conditional Buttons */}
       <div className="hidden md:flex items-center space-x-4">
         {/* Replace with authentication logic */}
-        <Link to="/auth/login" className="btn btn-primary flex items-center"><span><IoMdLogIn></IoMdLogIn></span> Login</Link>
-        <Link to="/auth/register" className="btn btn-secondary"><span> <FaUserPlus></FaUserPlus> </span>Register</Link>
+        {user && user?.email ? (
+          <button
+            onClick={logOut}
+            className="btn btn-primary flex items-center"
+          >
+            Log Out
+          </button>
+        ) : (
+          <div className="flex gap-3">
+            <Link
+              to="/auth/login"
+              className="btn btn-primary flex items-center"
+            >
+              <span>
+                <IoMdLogIn></IoMdLogIn>
+              </span>{" "}
+              Login
+            </Link>
+            <Link to="/auth/register" className="btn btn-secondary">
+              <span>
+                {" "}
+                <FaUserPlus></FaUserPlus>{" "}
+              </span>
+              Register
+            </Link>
+          </div>
+        )}
+
         {/* Logged-in state example */}
         {/* <div className="avatar">
           <div className="w-8 rounded-full">
@@ -88,10 +116,36 @@ const Navbar = () => {
             <li>
               <Link to="/my-visa-applications">My Visa Applications</Link>
             </li>
-            <li>
-              {/* Replace with conditional buttons */}
-              <button className="btn btn-primary">Login</button>
-              <button className="btn btn-secondary">Register</button>
+            {/* Replace with conditional buttons */}
+            <li className="hidden md:flex items-center space-x-4">
+              {/* Replace with authentication logic */}
+              {user && user?.email ? (
+                <button
+                  onClick={logOut}
+                  className="btn btn-primary flex items-center"
+                >
+                  Log Out
+                </button>
+              ) : (
+                <div className="flex gap-3">
+                  <Link
+                    to="/auth/login"
+                    className="btn btn-primary flex items-center"
+                  >
+                    <span>
+                      <IoMdLogIn></IoMdLogIn>
+                    </span>{" "}
+                    Login
+                  </Link>
+                  <Link to="/auth/register" className="btn btn-secondary">
+                    <span>
+                      {" "}
+                      <FaUserPlus></FaUserPlus>{" "}
+                    </span>
+                    Register
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>
