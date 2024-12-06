@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IoMdLogIn } from "react-icons/io";
+import { FaUserPlus } from "react-icons/fa6";
 
 const Navbar = () => {
   return (
-    <div className="navbar px-4 md:px-8 container mx-auto">
+    <div className="navbar px-5 py-5 md:px-8 container mx-auto">
       {/* Logo and Website Name */}
       <div className="flex-1">
         <Link to="/" className="text-xl font-bold">
@@ -35,8 +37,8 @@ const Navbar = () => {
       {/* Conditional Buttons */}
       <div className="hidden md:flex items-center space-x-4">
         {/* Replace with authentication logic */}
-        <button className="btn btn-primary">Login</button>
-        <button className="btn btn-secondary">Register</button>
+        <Link to="/auth/login" className="btn btn-primary flex items-center"><span><IoMdLogIn></IoMdLogIn></span> Login</Link>
+        <Link to="/auth/register" className="btn btn-secondary"><span> <FaUserPlus></FaUserPlus> </span>Register</Link>
         {/* Logged-in state example */}
         {/* <div className="avatar">
           <div className="w-8 rounded-full">

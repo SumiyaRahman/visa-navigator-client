@@ -1,0 +1,92 @@
+[
+  {
+    "country_image": "https://example.com/images/usa.png",
+    "country_name": "United States",
+    "visa_type": "Tourist Visa",
+    "processing_time": "10-15 Business Days",
+    "required_documents": [
+      "Valid passport",
+      "Visa application form",
+      "Recent passport-sized photograph",
+      "Proof of financial means",
+      "Travel itinerary"
+    ],
+    "description": "The U.S. Tourist Visa allows individuals to visit the United States for leisure, tourism, or family visits.",
+    "age_restriction": 18,
+    "fee": 160,
+    "validity": "6 Months",
+    "application_method": "Online"
+  },
+  {
+    "country_image": "https://example.com/images/canada.png",
+    "country_name": "Canada",
+    "visa_type": "Student Visa",
+    "processing_time": "20-30 Business Days",
+    "required_documents": [
+      "Valid passport",
+      "Acceptance letter from a Canadian institution",
+      "Proof of financial support",
+      "Medical examination report",
+      "Biometric information"
+    ],
+    "description": "The Canadian Student Visa allows international students to study at designated learning institutions in Canada.",
+    "age_restriction": 16,
+    "fee": 150,
+    "validity": "Duration of Study Program",
+    "application_method": "Online"
+  },
+  {
+    "country_image": "https://example.com/images/uk.png",
+    "country_name": "United Kingdom",
+    "visa_type": "Work Visa",
+    "processing_time": "15-20 Business Days",
+    "required_documents": [
+      "Valid passport",
+      "Job offer letter",
+      "Certificate of sponsorship",
+      "Proof of English proficiency",
+      "Proof of funds"
+    ],
+    "description": "The UK Work Visa allows skilled workers to take up employment in the United Kingdom.",
+    "age_restriction": 21,
+    "fee": 700,
+    "validity": "3 Years",
+    "application_method": "Online"
+  },
+  {
+    "country_image": "https://example.com/images/australia.png",
+    "country_name": "Australia",
+    "visa_type": "Business Visa",
+    "processing_time": "10-20 Business Days",
+    "required_documents": [
+      "Valid passport",
+      "Business invitation letter",
+      "Proof of financial means",
+      "Travel itinerary",
+      "Health insurance"
+    ],
+    "description": "The Australian Business Visa allows individuals to attend business meetings, conferences, or seminars in Australia.",
+    "age_restriction": 18,
+    "fee": 140,
+    "validity": "3 Months",
+    "application_method": "Online"
+  },
+  {
+    "country_image": "https://example.com/images/japan.png",
+    "country_name": "Japan",
+    "visa_type": "Tourist Visa",
+    "processing_time": "5-10 Business Days",
+    "required_documents": [
+      "Valid passport",
+      "Visa application form",
+      "Recent photograph",
+      "Travel itinerary",
+      "Proof of accommodation"
+    ],
+    "description": "The Japan Tourist Visa allows individuals to explore Japan's rich culture, heritage, and natural beauty.",
+    "age_restriction": 18,
+    "fee": 50,
+    "validity": "90 Days",
+    "application_method": "In-person at the embassy/consulate"
+  }
+]
