@@ -5,36 +5,49 @@ import ErrorPage from "../pages/ErrorPage";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import AddVisa from "../pages/AddVisa";
+import PrivateRoute from "./PrivateRoute";
+import AllVisas from "../pages/AllVisas";
+import MyVisaApplications from "../pages/MyVisaApplications";
+import MyAddedVisas from "../pages/MyAddedVisas";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
   },
-//   {
-//     path: "/add-visa",
-//     element: (
-//       <PrivateRoute>
-        
-//       </PrivateRoute>
-//     ),
-//   },
-//   {
-//     path: "/my-added-visas",
-//     element: (
-//       <PrivateRoute>
-        
-//       </PrivateRoute>
-//     ),
-//   },
-//   {
-//     path: "/my-visa-applications",
-//     element: (
-//       <PrivateRoute>
-        
-//       </PrivateRoute>
-//     ),
-//   },
+  {
+    path: "/addVisa",
+    element: (
+      <PrivateRoute>
+        <AddVisa></AddVisa>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/allVisas",
+    element: (
+      <PrivateRoute>
+        <AllVisas></AllVisas>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/myVisaApplications",
+    element: (
+      <PrivateRoute>
+        <MyVisaApplications></MyVisaApplications>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/myAddedVisas",
+    element: (
+      <PrivateRoute>
+        <MyAddedVisas></MyAddedVisas>
+      </PrivateRoute>
+    ),
+  },
   {
     path: "auth",
     element: <AuthLayout></AuthLayout>,

@@ -22,16 +22,16 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/all-visas">All Visas</Link>
+            <Link to="/allVisas">All Visas</Link>
           </li>
           <li>
-            <Link to="/add-visa">Add Visa</Link>
+            <Link to="/addVisa">Add Visa</Link>
           </li>
           <li>
-            <Link to="/my-added-visas">My Added Visas</Link>
+            <Link to="/myAddedVisas">My Added Visas</Link>
           </li>
           <li>
-            <Link to="/my-visa-applications">My Visa Applications</Link>
+            <Link to="/myVisaApplications">My Visa Applications</Link>
           </li>
         </ul>
       </div>
@@ -105,16 +105,16 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/all-visas">All Visas</Link>
+              <Link to="/allVisas">All Visas</Link>
             </li>
             <li>
-              <Link to="/add-visa">Add Visa</Link>
+              <Link to="/addVisa">Add Visa</Link>
             </li>
             <li>
-              <Link to="/my-added-visas">My Added Visas</Link>
+              <Link to="/myAddedVisas">My Added Visas</Link>
             </li>
             <li>
-              <Link to="/my-visa-applications">My Visa Applications</Link>
+              <Link to="/myVisaApplications">My Visa Applications</Link>
             </li>
             {/* Replace with conditional buttons */}
             <li className="hidden md:flex items-center space-x-4">
