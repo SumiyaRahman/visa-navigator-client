@@ -34,6 +34,24 @@ const Register = () => {
 
       console.log("User registered successfully:", user);
       navigate("/"); // Redirect to home page
+
+      const createAt = result?.user?.metadata?.creationTime;
+      const newUser = { name, email, password, photoURL, createAt };
+      // save new user info to the database
+      fetch("http://localhost:4000/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if(data.insertedId){
+            console.log('user created in db');
+            
+          }
+        });
     } catch (err) {
       console.error("Registration Error:", err.message);
       setError(err.message);

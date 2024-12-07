@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
-import google from '../assets/Images/google.png'
+import google from "../assets/Images/google.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -36,6 +36,23 @@ const Login = () => {
         setUser(user);
         console.log("Email/Password Login Successful:", user);
         navigate("/");
+
+        // update last login time
+        const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+        const loginInfo = {email, lastSignInTime}
+
+        fetch('http://localhost:4000/users', {
+            method: 'PATCH',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(loginInfo)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            
+        })
       })
       .catch((err) => {
         console.error("Login Error:", err.message);
