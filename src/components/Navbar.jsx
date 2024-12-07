@@ -40,12 +40,21 @@ const Navbar = () => {
       <div className="hidden md:flex items-center space-x-4">
         {/* Replace with authentication logic */}
         {user && user?.email ? (
-          <button
+          <div className="flex gap-3 items-center">
+            <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+              <img
+                className="h-12 w-12 rounded-full cursor-pointer"
+                src={user?.photoURL}
+                alt="User Avatar"
+              />
+            </div>
+            <button
             onClick={logOut}
             className="btn btn-primary flex items-center"
           >
             Log Out
           </button>
+          </div>
         ) : (
           <div className="flex gap-3">
             <Link
@@ -120,12 +129,21 @@ const Navbar = () => {
             <li className="hidden md:flex items-center space-x-4">
               {/* Replace with authentication logic */}
               {user && user?.email ? (
+                <div className="flex gap-3 items-center">
+                <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+              <img
+                className="h-12 w-12 rounded-full cursor-pointer"
+                src={user?.photoURL}
+                alt="User Avatar"
+              />
+            </div>
                 <button
-                  onClick={logOut}
-                  className="btn btn-primary flex items-center"
-                >
-                  Log Out
-                </button>
+                onClick={logOut}
+                className="btn btn-primary flex items-center"
+              >
+                Log Out
+              </button>
+              </div>
               ) : (
                 <div className="flex gap-3">
                   <Link
