@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { toast } from "react-toastify";
 
 const handleAddVisa = async (e) => {
   e.preventDefault();
@@ -36,10 +37,10 @@ const handleAddVisa = async (e) => {
     const result = await response.json();
 
     if (result.status) {
-      alert("Visa added successfully!");
+        toast.success("Visa added successfully!");
       form.reset(); // Clear the form
     } else {
-      alert("Failed to add visa. Please try again.");
+        toast.error("Failed to add visa. Please try again.");
     }
   } catch (error) {
     console.error("Error adding visa:", error);
@@ -53,7 +54,7 @@ const AddVisa = () => {
         <Navbar></Navbar>
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-blue-300 py-10 px-4">
       <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-4xl">
-        <h1 className="text-4xl font-extrabold mb-8 text-center text-blue-600">
+        <h1 className="text-4xl font-extrabold mb-8 text-center text-[#00CC99]">
           Add a New Visa
         </h1>
         <form onSubmit={handleAddVisa}>
@@ -215,7 +216,7 @@ const AddVisa = () => {
           {/* Add Visa Button */}
           <button
             type="submit"
-            className="btn btn-primary w-full py-3 mt-8 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold text-lg rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300"
+            className="btn w-full py-3 mt-8 bg-[#00CC99] text-white font-bold text-lg rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300"
           >
             Add Visa
           </button>

@@ -1,17 +1,22 @@
-import React from 'react';
+import React from "react";
 
 const Banner = () => {
   return (
-    <div className="carousel w-full h-[400px] bg-gray-100 shadow-lg">
+    <div className="carousel w-full h-[500px]">
       {/* Slide 1 */}
       <div id="slide1" className="carousel-item relative w-full">
-        <div className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-500 w-full h-full text-white p-8">
+        <img
+          src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          className="w-full object-cover"
+          alt="Visa Simplification"
+        />
+        <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-full h-full text-white p-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              Simplify Your Visa Applications
+            Embark on Your Educational Journey
             </h1>
             <p className="text-lg md:text-xl">
-              Check visa requirements, apply online, and track your application status all in one place.
+            Discover student visa options tailored for aspiring learners. Start your global education journey today.
             </p>
           </div>
         </div>
@@ -27,13 +32,18 @@ const Banner = () => {
 
       {/* Slide 2 */}
       <div id="slide2" className="carousel-item relative w-full">
-        <div className="flex items-center justify-center bg-gradient-to-r from-green-500 to-teal-500 w-full h-full text-white p-8">
+        <img
+          src="https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          className="w-full object-cover"
+          alt="Global Visa Options"
+        />
+        <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-full h-full text-white p-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              Explore Visa Options Globally
+            Your Journey Starts Here
             </h1>
             <p className="text-lg md:text-xl">
-              Find the right visa for your travel, education, or work needs from countries worldwide.
+            Unlock the world with our travel visa options. Whether it's leisure or adventure, we've got you covered.
             </p>
           </div>
         </div>
@@ -49,13 +59,18 @@ const Banner = () => {
 
       {/* Slide 3 */}
       <div id="slide3" className="carousel-item relative w-full">
-        <div className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 w-full h-full text-white p-8">
+        <img
+          src="https://images.pexels.com/photos/1595385/pexels-photo-1595385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          className="w-full object-cover"
+          alt="Real-Time Tracking"
+        />
+        <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-full h-full text-white p-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              Track Applications Effortlessly
+            Build Your Career Abroad
             </h1>
             <p className="text-lg md:text-xl">
-              Stay updated on the status of your visa application with real-time tracking.
+            Explore global opportunities with our tailored work visa solutions. Start your journey toward success today.
             </p>
           </div>
         </div>

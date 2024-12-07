@@ -8,8 +8,7 @@ import Register from "../pages/Register";
 import AddVisa from "../pages/AddVisa";
 import PrivateRoute from "./PrivateRoute";
 import AllVisas from "../pages/AllVisas";
-import MyVisaApplications from "../pages/MyVisaApplications";
-import MyAddedVisas from "../pages/MyAddedVisas";
+import VisaTypesSection from "../components/VisaTypesSection";
 
 const Router = createBrowserRouter([
   {
@@ -33,22 +32,6 @@ const Router = createBrowserRouter([
     ),
   },
   {
-    path: "/myVisaApplications",
-    element: (
-      <PrivateRoute>
-        <MyVisaApplications></MyVisaApplications>
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/myAddedVisas",
-    element: (
-      <PrivateRoute>
-        <MyAddedVisas></MyAddedVisas>
-      </PrivateRoute>
-    ),
-  },
-  {
     path: "auth",
     element: <AuthLayout></AuthLayout>,
     children: [
@@ -61,6 +44,10 @@ const Router = createBrowserRouter([
             element: <Register></Register>
         }
     ]
+  },
+  {
+    path: "/visaTypes",
+    element: <VisaTypesSection></VisaTypesSection>,
   },
   {
     path: "*",

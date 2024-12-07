@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import usa from '../assets/Images/usa.png'
+import canada from '../assets/Images/canada.png'
+import uk from '../assets/Images/uk.png'
 
 const LatestVisas = () => {
   return (
@@ -9,9 +13,9 @@ const LatestVisas = () => {
         <div className="card bg-base-100 shadow-xl border border-gray-200">
           <figure>
             <img
-              src="https://example.com/images/usa.png"
+              src={usa}
               alt="United States"
-              className="h-40 w-full object-cover"
+              className="h-52 w-full object-cover rounded-lg p-5"
             />
           </figure>
           <div className="card-body">
@@ -33,7 +37,7 @@ const LatestVisas = () => {
               <span className="font-bold">Application Method:</span> Online
             </p>
             <div className="card-actions mt-4">
-              <button className="btn btn-primary w-full">See Details</button>
+              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
             </div>
           </div>
         </div>
@@ -42,9 +46,9 @@ const LatestVisas = () => {
         <div className="card bg-base-100 shadow-xl border border-gray-200">
           <figure>
             <img
-              src="https://example.com/images/canada.png"
+              src={canada}
               alt="Canada"
-              className="h-40 w-full object-cover"
+              className="h-52 w-full object-cover rounded-lg p-5"
             />
           </figure>
           <div className="card-body">
@@ -67,7 +71,7 @@ const LatestVisas = () => {
               <span className="font-bold">Application Method:</span> Online
             </p>
             <div className="card-actions mt-4">
-              <button className="btn btn-primary w-full">See Details</button>
+              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
             </div>
           </div>
         </div>
@@ -76,9 +80,9 @@ const LatestVisas = () => {
         <div className="card bg-base-100 shadow-xl border border-gray-200">
           <figure>
             <img
-              src="https://example.com/images/uk.png"
+              src={uk}
               alt="United Kingdom"
-              className="h-40 w-full object-cover"
+              className="h-52 w-full object-cover rounded-lg p-5"
             />
           </figure>
           <div className="card-body">
@@ -100,7 +104,7 @@ const LatestVisas = () => {
               <span className="font-bold">Application Method:</span> Online
             </p>
             <div className="card-actions mt-4">
-              <button className="btn btn-primary w-full">See Details</button>
+              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
             </div>
           </div>
         </div>
@@ -108,7 +112,7 @@ const LatestVisas = () => {
 
       {/* "See All Visas" Button */}
       <div className="text-center mt-8">
-        <button className="btn btn-secondary">See All Visas</button>
+        <Link to='/allVisas' className="btn bg-[#E6EBED] text-[#0F172A]">See All Visas</Link>
       </div>
     </section>
   );

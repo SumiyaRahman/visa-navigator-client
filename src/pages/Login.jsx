@@ -20,7 +20,34 @@ const Login = () => {
         setUser(user);
         console.log("Google Login Successful:", user);
         navigate("/");
-      })
+
+         // Collect Google user data
+         const googleUser = {
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            lastSignInTime: user.metadata.lastSignInTime,
+          };
+          // Save Google user data to MongoDB
+        fetch("http://localhost:4000/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(googleUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                console.log("Google user added to database");
+              } else {
+                console.log("Google user already exists or failed to add");
+              }
+            })
+            .catch((error) => {
+              console.error("Error saving Google user to database:", error);
+            });
+        })
       .catch((error) => {
         console.error("Google Login Error:", error.message);
         setError(error.message);

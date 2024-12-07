@@ -2,11 +2,11 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-[#00CC99] text-white py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Website Name / Logo */}
         <div className="mb-4 md:mb-0">
-          <h1 className="text-3xl font-semibold">Visa Navigator</h1>
+          <h1 className="text-3xl font-semibold">VisaHub</h1>
           <p className="text-sm mt-2">Your trusted visa application partner</p>
         </div>
 

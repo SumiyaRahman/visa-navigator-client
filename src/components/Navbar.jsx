@@ -1,17 +1,26 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
 import { FaUserPlus } from "react-icons/fa6";
 import { AuthContext } from "../provider/AuthProvider";
+import logo from '../assets/Images/logo.png'
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  const activeLinkStyle = "text-[#0F172A] font-semibold border rounded";
+  const defaultLinkStyle = "text-[#787B84] font-semibold border rounded";
+
   return (
     <div className="navbar px-5 py-5 md:px-8 container mx-auto">
       {/* Logo and Website Name */}
       <div className="flex-1">
         <Link to="/" className="text-xl font-bold">
-          Visa Navigator
+        <div className="flex items-center gap-2">
+        <img className="w-10 h-10" src={logo} />
+        <p className="text-4xl"><span className="text-[#787B84]">Visa</span><span className="text-[#0F172A]">Hub</span></p>
+        {/*  */}
+        </div>
         </Link>
       </div>
 
@@ -19,25 +28,60 @@ const Navbar = () => {
       <div className="hidden md:flex items-center">
         <ul className="menu menu-horizontal px-1 space-x-4">
           <li>
-            <Link to="/">Home</Link>
+             <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/allVisas">All Visas</Link>
+          <NavLink
+              to="/allVisas"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              All Visas
+            </NavLink>
           </li>
           <li>
-            <Link to="/addVisa">Add Visa</Link>
+          <NavLink
+              to="/addVisa"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              Add Visa
+            </NavLink>
           </li>
           <li>
-            <Link to="/myAddedVisas">My Added Visas</Link>
+          <NavLink
+              to="/myAddedVisas"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              My Added Visas
+            </NavLink>
           </li>
           <li>
-            <Link to="/myVisaApplications">My Visa Applications</Link>
+          <NavLink
+              to="/myVisaApplications"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              My Visa Applications
+            </NavLink>
           </li>
         </ul>
       </div>
 
       {/* Conditional Buttons */}
-      <div className="hidden md:flex items-center space-x-4">
+      <div className="hidden md:flex items-center space-x-4 ml-4">
         {/* Replace with authentication logic */}
         {user && user?.email ? (
           <div className="flex gap-3 items-center">
@@ -50,7 +94,7 @@ const Navbar = () => {
             </div>
             <button
             onClick={logOut}
-            className="btn btn-primary flex items-center"
+            className="btn bg-[#00CC99] text-white flex items-center"
           >
             Log Out
           </button>
@@ -59,14 +103,14 @@ const Navbar = () => {
           <div className="flex gap-3">
             <Link
               to="/auth/login"
-              className="btn btn-primary flex items-center"
+              className="btn bg-[#00CC99] text-white flex items-center"
             >
               <span>
                 <IoMdLogIn></IoMdLogIn>
               </span>{" "}
               Login
             </Link>
-            <Link to="/auth/register" className="btn btn-secondary">
+            <Link to="/auth/register" className="btn text-[#0F172A]">
               <span>
                 {" "}
                 <FaUserPlus></FaUserPlus>{" "}
@@ -110,21 +154,56 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/allVisas">All Visas</Link>
-            </li>
-            <li>
-              <Link to="/addVisa">Add Visa</Link>
-            </li>
-            <li>
-              <Link to="/myAddedVisas">My Added Visas</Link>
-            </li>
-            <li>
-              <Link to="/myVisaApplications">My Visa Applications</Link>
-            </li>
+             <li>
+             <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+          <NavLink
+              to="/allVisas"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              All Visas
+            </NavLink>
+          </li>
+          <li>
+          <NavLink
+              to="/addVisa"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              Add Visa
+            </NavLink>
+          </li>
+          <li>
+          <NavLink
+              to="/myAddedVisas"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              My Added Visas
+            </NavLink>
+          </li>
+          <li>
+          <NavLink
+              to="/myVisaApplications"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : defaultLinkStyle
+              }
+            >
+              My Visa Applications
+            </NavLink>
+          </li>
             {/* Replace with conditional buttons */}
             <li className="hidden md:flex items-center space-x-4">
               {/* Replace with authentication logic */}
@@ -139,7 +218,7 @@ const Navbar = () => {
             </div>
                 <button
                 onClick={logOut}
-                className="btn btn-primary flex items-center"
+                className="btn bg-[#00CC99] text-white flex items-center"
               >
                 Log Out
               </button>
@@ -148,14 +227,14 @@ const Navbar = () => {
                 <div className="flex gap-3">
                   <Link
                     to="/auth/login"
-                    className="btn btn-primary flex items-center"
+                    className="btn bg-[#00CC99] text-white flex items-center"
                   >
                     <span>
                       <IoMdLogIn></IoMdLogIn>
                     </span>{" "}
                     Login
                   </Link>
-                  <Link to="/auth/register" className="btn btn-secondary">
+                  <Link to="/auth/register" className="btn bg-[#FFFFFF] text-[#0F172A]">
                     <span>
                       {" "}
                       <FaUserPlus></FaUserPlus>{" "}

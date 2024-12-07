@@ -30,7 +30,7 @@ const AllVisas = () => {
             <p className="text-gray-600 mb-4">Fee: ${visa.fee}</p>
             <Link
               to={`/visa-details/${visa._id}`}
-              className="btn btn-primary w-full"
+              className="btn bg-[#00CC99] text-white w-full"
             >
               See Details
             </Link>
