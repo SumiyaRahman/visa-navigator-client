@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import Navbar from "../components/Navbar";
-import Swal from "sweetalert2";  // For user-friendly popups
+import Swal from "sweetalert2"; // For user-friendly popups
 
 const MyVisaApplications = () => {
   const { user } = useContext(AuthContext);
   const [applications, setApplications] = useState([]);
+  const [filteredApplications, setFilteredApplications] = useState([]); // State for filtered applications
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,6 +17,7 @@ const MyVisaApplications = () => {
         .then((res) => res.json())
         .then((data) => {
           setApplications(data);
+          setFilteredApplications(data); // Initially, show all applications
           setLoading(false);
         })
         .catch((error) => {
@@ -54,6 +57,9 @@ const MyVisaApplications = () => {
           setApplications((prevApplications) =>
             prevApplications.filter((app) => app._id !== applicationId)
           );
+          setFilteredApplications((prevApplications) =>
+            prevApplications.filter((app) => app._id !== applicationId)
+          );
         } else {
           Swal.fire("Error", result.error || "Failed to cancel application", "error");
         }
@@ -61,6 +67,23 @@ const MyVisaApplications = () => {
         console.error("Error canceling application:", error);
         Swal.fire("Error", "An error occurred while cancelling the application", "error");
       }
+    }
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Handle search button click
+  const handleSearch = () => {
+    if (searchQuery.trim() === "") {
+      setFilteredApplications(applications); // If search is empty, show all applications
+    } else {
+      const filtered = applications.filter((application) =>
+        application.countryName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredApplications(filtered);
     }
   };
 
@@ -73,18 +96,38 @@ const MyVisaApplications = () => {
       <Navbar />
       <div className="container mx-auto py-10 px-5">
         <h1 className="text-3xl font-bold text-center mb-8">My Visa Applications</h1>
-        {applications.length === 0 ? (
-          <p>You have not applied for any visas yet.</p>
+
+        {/* Search Section */}
+        <div className="flex justify-center items-center mb-8">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange} // Update search query state
+            placeholder="Search by country name"
+            className="input input-bordered w-full max-w-md"
+          />
+          <button
+            onClick={handleSearch} // Trigger search
+            className="btn btn-primary ml-4"
+          >
+            Search
+          </button>
+        </div>
+        {/* End of Search Section */}
+
+        {filteredApplications.length === 0 ? (
+          <p>No applications found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {applications.map((application) => (
+            {filteredApplications.map((application) => (
               <div key={application._id} className="border p-5 rounded-lg shadow-md">
+                {/* Country Name */}
+                <h2 className="text-2xl font-bold mb-2">{application.countryName}</h2>
                 <img
                   src={application.countryImg}
                   alt={application.countryName}
                   className="w-full h-40 object-cover rounded-lg mb-4"
                 />
-                <h2 className="text-2xl font-bold">{application.countryName}</h2>
                 <p>Visa Type: {application.visaType}</p>
                 <p>Processing Time: {application.processingTime}</p>
                 <p>Fee: ${application.fee}</p>

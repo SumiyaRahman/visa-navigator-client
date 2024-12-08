@@ -22,7 +22,6 @@ const MyAddedVisa = () => {
 
   // Fetch user's added visas
   useEffect(() => {
-
     if (!uid) return; // If there's no user, don't fetch data
 
     const fetchVisas = async () => {
@@ -84,18 +83,18 @@ const MyAddedVisa = () => {
   // Submit the updated visa data
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!currentVisa?._id) {
       Swal.fire("Error", "Visa information is missing.", "error");
       return;
     }
-  
+
     // Add the uid to the formData object
     const updatedFormData = {
       ...formData,
       uid, // Add the uid here
     };
-  
+
     try {
       const response = await fetch(
         `http://localhost:4000/addVisa/${currentVisa._id}`,
@@ -107,15 +106,17 @@ const MyAddedVisa = () => {
           body: JSON.stringify(updatedFormData), // Send the updatedFormData
         }
       );
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         Swal.fire("Success", "Visa updated successfully", "success");
         setIsModalOpen(false); // Close the modal
         setVisas(
           visas.map((visa) =>
-            visa._id === currentVisa._id ? { ...visa, ...updatedFormData } : visa
+            visa._id === currentVisa._id
+              ? { ...visa, ...updatedFormData }
+              : visa
           )
         );
       } else {
@@ -126,7 +127,45 @@ const MyAddedVisa = () => {
       Swal.fire("Error", "An error occurred while updating visa", "error");
     }
   };
-  
+
+  const handleDelete = async (visaId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/deleteVisa/${visaId}`,
+            {
+              method: "DELETE",
+            }
+          );
+
+          const result = await response.json();
+
+          if (response.ok) {
+            Swal.fire("Deleted!", "Visa has been deleted.", "success");
+            setVisas(visas.filter((visa) => visa._id !== visaId)); // Update the state
+          } else {
+            Swal.fire(
+              "Error",
+              result.error || "Failed to delete visa",
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Error deleting visa:", error);
+          Swal.fire("Error", "An error occurred while deleting visa", "error");
+        }
+      }
+    });
+  };
 
   if (loading) {
     return (
@@ -169,12 +208,20 @@ const MyAddedVisa = () => {
                   </p>
                   <p className="text-gray-600">Fee: ${visa.fee}</p>
                   <p className="text-gray-600">Validity: {visa.validity}</p>
-                  <button
-                    className="py-2 px-4 bg-[#00CC99] text-white font-bold rounded-lg"
-                    onClick={() => handleUpdate(visa._id)}
-                  >
-                    Update
-                  </button>
+                  <div className="flex justify-between mt-5">
+                    <button
+                      className="py-2 px-4 bg-[#00CC99] text-white font-bold rounded-lg"
+                      onClick={() => handleUpdate(visa._id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="py-2 px-4 bg-red-500 text-white font-bold rounded-lg"
+                      onClick={() => handleDelete(visa._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
