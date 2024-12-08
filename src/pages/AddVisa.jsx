@@ -1,82 +1,81 @@
 import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 
-const handleAddVisa = async (e) => {
-  e.preventDefault();
-  const form = e.target;
+const AddVisa = () => {
+  const { user } = useContext(AuthContext);
+  const handleAddVisa = async (e) => {
+    e.preventDefault();
+    // Access the currently logged-in user's uid
+    console.log(user); // Replace with your actual auth context/method to get the user
+    const uid = user?.uid;
 
-  // Access the currently logged-in user's uid
-  const {user} = useContext(AuthContext); // Replace with your actual auth context/method to get the user
-  const uid = user?.uid;
-
-  if (!uid) {
-    Swal.fire({
-      icon: "error",
-      title: "Not Authorized",
-      text: "You must be logged in to add a visa.",
-    });
-    return;
-  }
-
-  // Collect all form data
-  const visaData = {
-    countryImg: form.countryImg.value,
-    countryName: form.countryName.value,
-    visaType: form.visaType.value,
-    processTime: form.processTime.value,
-    requiredDocuments: Array.from(
-      form.querySelectorAll("input[type='checkbox']:checked")
-    ).map((checkbox) => checkbox.value),
-    description: form.description.value,
-    age: form.age.value,
-    fee: form.fee.value,
-    validity: form.validity.value,
-    appMethod: form.appMethod.value,
-    uid, // Add the user's uid to the data being sent
-  };
-
-  console.log("Visa Data with UID:", visaData); // For debugging
-
-  // Send the data to the backend API
-  try {
-    const response = await fetch("http://localhost:4000/addVisa", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(visaData),
-    });
-
-    const result = await response.json();
-
-    if (result?.insertedId) {
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Visa added successfully!",
-      });
-      form.reset(); // Clear the form
-    } else {
+    const form = e.target;
+    if (!uid) {
       Swal.fire({
         icon: "error",
-        title: "Failed",
-        text: "Failed to add visa. Please try again.",
+        title: "Not Authorized",
+        text: "You must be logged in to add a visa.",
+      });
+      return;
+    }
+
+    // Collect all form data
+    const visaData = {
+      countryImg: form.countryImg.value,
+      countryName: form.countryName.value,
+      visaType: form.visaType.value,
+      processTime: form.processTime.value,
+      requiredDocuments: Array.from(
+        form.querySelectorAll("input[type='checkbox']:checked")
+      ).map((checkbox) => checkbox.value),
+      description: form.description.value,
+      age: form.age.value,
+      fee: form.fee.value,
+      validity: form.validity.value,
+      appMethod: form.appMethod.value,
+      uid, // Add the user's uid to the data being sent
+    };
+
+    console.log("Visa Data with UID:", visaData); // For debugging
+
+    // Send the data to the backend API
+    try {
+      const response = await fetch("http://localhost:4000/addVisa", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(visaData),
+      });
+
+      const result = await response.json();
+
+      if (result?.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Visa added successfully!",
+        });
+        form.reset(); // Clear the form
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Failed",
+          text: "Failed to add visa. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding visa:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred. Please check the console for details.",
       });
     }
-  } catch (error) {
-    console.error("Error adding visa:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "An error occurred. Please check the console for details.",
-    });
-  }
-};
-
-const AddVisa = () => {
+  };
   return (
     <div>
       <Navbar></Navbar>
