@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import AllVisas from "../pages/AllVisas";
 import VisaTypesSection from "../components/VisaTypesSection";
 import VisaDetails from "../pages/VisaDetails";
+import MyAddedVisa from "../pages/MyAddedVisa";
 
 const Router = createBrowserRouter([
   {
@@ -37,18 +38,26 @@ const Router = createBrowserRouter([
     element: <VisaDetails></VisaDetails>,
   },
   {
+    path: "/myAddedVisas", // Add this route for the user's added visas
+    element: (
+      <PrivateRoute>
+        <MyAddedVisa></MyAddedVisa>
+      </PrivateRoute>
+    ),
+  },
+  {
     path: "auth",
     element: <AuthLayout></AuthLayout>,
     children: [
-        {
-            path:"/auth/login",
-            element: <Login></Login>
-        },
-        {
-            path:"/auth/register",
-            element: <Register></Register>
-        }
-    ]
+      {
+        path: "/auth/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/auth/register",
+        element: <Register></Register>,
+      },
+    ],
   },
   {
     path: "/visaTypes",
