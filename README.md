@@ -4,7 +4,7 @@
 
 ## 🚀 [Live Site URL](https://your-live-site-url.com)
 
----
+
 
 ## 💡 Features of VisaHub:
 
@@ -31,7 +31,7 @@
    - SweetAlert2 notifications for all CRUD operations and important user feedback.
    - Engaging animations using Lottie React and React Tooltip for tooltips.
 
----
+
 
 ## 🛠️ Technologies Used:
 
@@ -59,7 +59,7 @@
    - GitHub for version control.
    - SweetAlert2 for notifications.
 
----
+
 
 ## 🌟 Key Features Breakdown:
 
