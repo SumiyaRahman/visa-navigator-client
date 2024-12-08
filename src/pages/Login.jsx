@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
 import google from "../assets/Images/google.png";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,14 +39,15 @@ const Login = () => {
           })
             .then((res) => res.json())
             .then((data) => {
-              if (data.insertedId) {
-                console.log("Google user added to database");
-              } else {
-                console.log("Google user already exists or failed to add");
-              }
+                if (data.insertedId) {
+                    toast.success("Google user added to the database!");
+                  } else {
+                    toast.info("Google user already exists.");
+                  }
             })
             .catch((error) => {
-              console.error("Error saving Google user to database:", error);
+                console.error("Error saving Google user to database:", error);
+                toast.error("Failed to save Google user to the database.");
             });
         })
       .catch((error) => {
@@ -77,13 +79,17 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            
+            if (data.insertedId) {
+                toast.success("User added to the database!");
+              } else {
+                toast.info("User already exists.");
+              }
         })
       })
       .catch((err) => {
         console.error("Login Error:", err.message);
-        setError("Invalid email or password");
+        const toastErr = toast.error("Invalid email or password. Please try again.");
+        setError(toastErr);
       });
   };
 
@@ -133,7 +139,7 @@ const Login = () => {
             </div>
 
             {/* Login Button */}
-            <button type="submit" className="btn btn-primary w-full">
+            <button type="submit" className="btn bg-[#00CC99] text-white font-medium text-lg w-full">
               Login
             </button>
           </form>
@@ -142,10 +148,10 @@ const Login = () => {
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            className="btn bg-white border-2 border-[#FFDE00] mt-4 rounded shadow-none text-sm md:text-lg font-medium w-full flex items-center justify-center gap-2"
+            className="btn bg-white border-2 border-[#00CC99] mt-4 rounded shadow-none text-sm md:text-lg font-medium w-full flex items-center justify-center gap-2"
           >
             <img src={google} className="h-4 w-4" />
-            <span className="bg-gradient-to-r from-[#DE2910] to-[#FFDE00] bg-clip-text text-transparent">
+            <span className="text-[#00CC99]">
               Login with Google
             </span>
           </button>

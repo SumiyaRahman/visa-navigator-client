@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import Navbar from "../components/Navbar";
 import { updateProfile } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,26 +19,30 @@ const Register = () => {
     e.preventDefault();
     if (name.length < 5) {
       setError("Name must be more than 5 characters long");
+      toast.error("Name must be more than 5 characters long");
       return;
     }
-
+  
     try {
       // Create user with email and password
       const result = await createNewUser(email, password);
       const user = result.user;
-
+  
       // Update user profile with name and photoURL
       await updateProfile(user, {
         displayName: name,
         photoURL: photoURL,
       });
-
-      console.log("User registered successfully:", user);
+  
+      toast.success("User registered successfully!");
       navigate("/"); // Redirect to home page
-
+  
       const createAt = result?.user?.metadata?.creationTime;
-      const newUser = { name, email, password, photoURL, createAt };
-      // save new user info to the database
+      const uid = user.uid; // Extract the uid from the user object
+  
+      const newUser = { uid, name, email, password, photoURL, createAt };
+  
+      // Save new user info to the database
       fetch("http://localhost:4000/users", {
         method: "POST",
         headers: {
@@ -47,16 +52,18 @@ const Register = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if(data.insertedId){
-            console.log('user created in db');
-            
+          if (data.insertedId) {
+            toast.success("User Registration Successful!");
+            console.log("User created in the database");
           }
         });
     } catch (err) {
       console.error("Registration Error:", err.message);
       setError(err.message);
+      toast.error(err.message);
     }
   };
+  
 
   return (
     <div>

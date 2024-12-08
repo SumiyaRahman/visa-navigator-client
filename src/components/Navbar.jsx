@@ -15,15 +15,29 @@ const Navbar = () => {
   const defaultLinkStyle = "text-[#787B84] font-semibold border rounded";
 
   return (
-    <div className={`navbar px-5 py-5 md:px-8 container mx-auto ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
+    <div
+      className={`navbar px-5 py-5 md:px-8 container mx-auto ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+      }`}
+    >
       {/* Logo and Website Name */}
       <div className="flex-1">
         <Link to="/" className="text-xl font-bold">
           <div className="flex items-center gap-2">
             <img className="w-10 h-10" src={logo} alt="Logo" />
             <p className="text-4xl">
-              <span className={theme === "dark" ? "text-gray-400" : "text-[#787B84]"}>Visa</span>
-              <span className={theme === "dark" ? "text-white" : "text-[#0F172A]"}>Hub</span>
+              <span
+                className={
+                  theme === "dark" ? "text-gray-400" : "text-[#787B84]"
+                }
+              >
+                Visa
+              </span>
+              <span
+                className={theme === "dark" ? "text-white" : "text-[#0F172A]"}
+              >
+                Hub
+              </span>
             </p>
           </div>
         </Link>
@@ -89,7 +103,10 @@ const Navbar = () => {
       <div className="hidden md:flex items-center space-x-4 ml-4">
         {user && user?.email ? (
           <div className="flex gap-3 items-center">
-            <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+            <div
+              className="tooltip tooltip-bottom"
+              data-tip={user?.displayName}
+            >
               <img
                 className="h-12 w-12 rounded-full cursor-pointer"
                 src={user?.photoURL}
@@ -112,21 +129,24 @@ const Navbar = () => {
               <IoMdLogIn />
               Login
             </Link>
-            <Link to="/auth/register" className="btn bg-[#FFFFFF] text-[#0F172A]">
+            <Link
+              to="/auth/register"
+              className="btn bg-[#FFFFFF] text-[#0F172A]"
+            >
               <FaUserPlus />
               Register
             </Link>
           </div>
         )}
       </div>
-      
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="text-2xl flex items-center text-[#00CC99] hover:text-[#0F172A] focus:outline-none ml-3"
-            >
-              {theme === "light" ? <BsMoonFill /> : <BsSunFill />}
-            </button>
+
+      {/* Theme Toggle */}
+      <button
+        onClick={toggleTheme}
+        className="text-2xl flex items-center text-[#00CC99] hover:text-[#0F172A] focus:outline-none ml-3"
+      >
+        {theme === "light" ? <BsMoonFill /> : <BsSunFill />}
+      </button>
 
       {/* Mobile Menu Toggle */}
       <div className="md:hidden">
@@ -149,7 +169,11 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}
+            className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 ${
+              theme === "dark"
+                ? "bg-gray-800 text-white"
+                : "bg-white text-gray-800"
+            }`}
           >
             <li>
               <NavLink

@@ -51,7 +51,7 @@ const VisaTypesSection = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-gray-50 to-gray-100 py-16">
+    <div>
       <div className="container mx-auto px-6 lg:px-20">
         {/* Heading */}
         <div className="text-center mb-12">
