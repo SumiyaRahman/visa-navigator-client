@@ -1,5 +1,5 @@
 import React from "react";
-import holdingPassport from "../assets/Images/holdingPassport.jpg"
+import { Fade, Zoom } from "react-awesome-reveal"; // Import animations
 
 const VisaTypesSection = () => {
   const visaTypes = [
@@ -52,49 +52,43 @@ const VisaTypesSection = () => {
 
   return (
     <div>
-      <div className="container mx-auto px-6 lg:px-20">
+      <div className="container mx-auto px-6 lg:px-20 mt-20">
         {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800">
-            Visa Types and Eligibility Assessment
-          </h2>
-          <p className="text-lg text-gray-600 mt-2">
-            Explore various visa options tailored for your needs.
-          </p>
-        </div>
+        <Fade direction="up" cascade triggerOnce>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800">
+              Visa Types and Eligibility Assessment
+            </h2>
+            <p className="text-lg text-gray-600 mt-2">
+              Explore various visa options tailored for your needs.
+            </p>
+          </div>
+        </Fade>
 
         {/* Visa Types Section */}
-        <div className="flex items-center justify-between gap-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {visaTypes.map((visa) => (
-            <div
-              key={visa.id}
-              className="flex flex-col bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
-            >
-              {/* Icon */}
+            <Zoom key={visa.id} triggerOnce>
               <div
-                className={`h-16 w-16 flex items-center justify-center text-3xl font-bold rounded-full ${visa.bgColor} ${visa.textColor}`}
+                className="flex flex-col bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
               >
-                {visa.icon}
+                {/* Icon */}
+                <div
+                  className={`h-16 w-16 flex items-center justify-center text-3xl font-bold rounded-full ${visa.bgColor} ${visa.textColor}`}
+                >
+                  {visa.icon}
+                </div>
+
+                {/* Title */}
+                <h3 className="mt-4 text-xl font-semibold text-gray-800">
+                  {visa.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-600 mt-2">{visa.description}</p>
               </div>
-
-              {/* Title */}
-              <h3 className="mt-4 text-xl font-semibold text-gray-800">
-                {visa.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-600 mt-2">{visa.description}</p>
-            </div>
+            </Zoom>
           ))}
-        </div>
-
-        {/* Decorative Image */}
-        <img
-            src={holdingPassport}
-            alt="Visa Process"
-            className="rounded-lg shadow-lg w-full max-w-md"
-          />
         </div>
       </div>
     </div>

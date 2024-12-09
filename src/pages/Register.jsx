@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import Navbar from "../components/Navbar";
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -11,39 +12,63 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const { createNewUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+    if (!/[A-Z]/.test(password)) {
+      return "Password must include at least one uppercase letter.";
+    }
+    if (!/[a-z]/.test(password)) {
+      return "Password must include at least one lowercase letter.";
+    }
+    if (password.length < 6) {
+      return "Password must be at least 6 characters long.";
+    }
+    return "";
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Validate name
     if (name.length < 5) {
       setError("Name must be more than 5 characters long");
       toast.error("Name must be more than 5 characters long");
       return;
     }
-  
+
+    // Validate password
+    const passwordValidationError = validatePassword(password);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+      toast.error(passwordValidationError);
+      return;
+    }
+
     try {
       // Create user with email and password
       const result = await createNewUser(email, password);
       const user = result.user;
-  
+
       // Update user profile with name and photoURL
       await updateProfile(user, {
         displayName: name,
         photoURL: photoURL,
       });
-  
+
       toast.success("User registered successfully!");
       navigate("/"); // Redirect to home page
-  
+
       const createAt = result?.user?.metadata?.creationTime;
       const uid = user.uid; // Extract the uid from the user object
-  
+
       const newUser = { uid, name, email, password, photoURL, createAt };
-  
+
       // Save new user info to the database
-      fetch("http://localhost:4000/users", {
+      fetch("https://visa-navigator-project.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -54,7 +79,7 @@ const Register = () => {
         .then((data) => {
           if (data.insertedId) {
             toast.success("User Registration Successful!");
-            console.log("User created in the database");
+            
           }
         });
     } catch (err) {
@@ -63,7 +88,6 @@ const Register = () => {
       toast.error(err.message);
     }
   };
-  
 
   return (
     <div>
@@ -125,10 +149,16 @@ const Register = () => {
                 name="password"
                 className="input input-bordered w-full"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setPasswordError(""); // Reset password error when user types
+                }}
                 placeholder="Enter your password"
                 required
               />
+              {passwordError && (
+                <p className="text-red-500 text-sm mt-2">{passwordError}</p>
+              )}
             </div>
 
             {/* Register Button */}
@@ -144,6 +174,7 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

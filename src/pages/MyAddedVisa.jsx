@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider"; // Import your AuthContext
 import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const MyAddedVisa = () => {
   const [visas, setVisas] = useState([]); // State to store user's visas
@@ -27,7 +28,7 @@ const MyAddedVisa = () => {
     const fetchVisas = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/myAddedVisa/${uid}` // Corrected to match the API route
+          `https://visa-navigator-project.vercel.app/myAddedVisa/${uid}` // Corrected to match the API route
         );
         const result = await response.json();
 
@@ -97,7 +98,7 @@ const MyAddedVisa = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/addVisa/${currentVisa._id}`,
+        `https://visa-navigator-project.vercel.app/addVisa/${currentVisa._id}`,
         {
           method: "PUT",
           headers: {
@@ -141,7 +142,7 @@ const MyAddedVisa = () => {
       if (result.isConfirmed) {
         try {
           const response = await fetch(
-            `http://localhost:4000/deleteVisa/${visaId}`,
+            `https://visa-navigator-project.vercel.app/deleteVisa/${visaId}`,
             {
               method: "DELETE",
             }
@@ -178,7 +179,7 @@ const MyAddedVisa = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-r from-blue-100 to-blue-300 py-10 px-4">
+      <div className="min-h-screen py-10 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8 text-[#00CC99]">
             My Added Visas
@@ -228,111 +229,120 @@ const MyAddedVisa = () => {
           )}
         </div>
       </div>
+      <Footer></Footer>
 
-      {/* Modal for updating visa */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
-            <h2 className="text-2xl font-bold mb-4">Update Visa</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-700">Country Name</label>
-                <input
-                  type="text"
-                  name="countryName"
-                  value={formData.countryName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Country Image URL</label>
-                <input
-                  type="text"
-                  name="countryImg"
-                  value={formData.countryImg}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Visa Type</label>
-                <input
-                  type="text"
-                  name="visaType"
-                  value={formData.visaType}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Processing Time</label>
-                <input
-                  type="text"
-                  name="processTime"
-                  value={formData.processTime}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Fee</label>
-                <input
-                  type="number"
-                  name="fee"
-                  value={formData.fee}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Validity</label>
-                <input
-                  type="text"
-                  name="validity"
-                  value={formData.validity}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Application Method
-                </label>
-                <input
-                  type="text"
-                  name="applicationMethod"
-                  value={formData.applicationMethod}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="py-2 px-4 bg-[#00CC99] text-white font-bold rounded-lg"
-                >
-                  Update Visa
-                </button>
-              </div>
-            </form>
-            {/* Close button inside the modal */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-gray-600"
-            >
-              X
-            </button>
-            {/* Alternative Close Button Inside the Modal */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="py-2 px-4 bg-red-500 text-white font-bold rounded-lg mt-4"
-            >
-              Close
-            </button>
-          </div>
+  <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl relative">
+      {/* Close Button at Top-Right */}
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl"
+      >
+        &times;
+      </button>
+
+      <h2 className="text-2xl font-bold mb-4">Update Visa</h2>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Country Name */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Country Name</label>
+          <input
+            type="text"
+            name="countryName"
+            value={formData.countryName}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
         </div>
-      )}
+        {/* Country Image URL */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Country Image URL</label>
+          <input
+            type="text"
+            name="countryImg"
+            value={formData.countryImg}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Visa Type */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Visa Type</label>
+          <input
+            type="text"
+            name="visaType"
+            value={formData.visaType}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Processing Time */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Processing Time</label>
+          <input
+            type="text"
+            name="processTime"
+            value={formData.processTime}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Fee */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Fee</label>
+          <input
+            type="number"
+            name="fee"
+            value={formData.fee}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Validity */}
+        <div className="mb-4">
+          <label className="block text-gray-700">Validity</label>
+          <input
+            type="text"
+            name="validity"
+            value={formData.validity}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Application Method */}
+        <div className="mb-4 col-span-1 md:col-span-2">
+          <label className="block text-gray-700">Application Method</label>
+          <input
+            type="text"
+            name="applicationMethod"
+            value={formData.applicationMethod}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        {/* Buttons */}
+        <div className="flex justify-end col-span-1 md:col-span-2">
+          <button
+            type="submit"
+            className="py-2 px-4 bg-[#00CC99] text-white font-bold rounded-lg mr-2"
+          >
+            Update Visa
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(false)}
+            className="py-2 px-4 bg-red-500 text-white font-bold rounded-lg"
+          >
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

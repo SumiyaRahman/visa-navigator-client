@@ -36,7 +36,11 @@ const Router = createBrowserRouter([
   },
   {
     path: "/visa-details/:id",
-    element: <VisaDetails></VisaDetails>,
+    element: (
+      <PrivateRoute>
+        <VisaDetails></VisaDetails>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/myAddedVisas", // Add this route for the user's added visas

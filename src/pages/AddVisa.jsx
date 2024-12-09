@@ -3,13 +3,14 @@ import Navbar from "../components/Navbar";
 // import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import Footer from "../components/Footer";
 
 const AddVisa = () => {
   const { user } = useContext(AuthContext);
   const handleAddVisa = async (e) => {
     e.preventDefault();
     // Access the currently logged-in user's uid
-    console.log(user); // Replace with your actual auth context/method to get the user
+    
     const uid = user?.uid;
 
     const form = e.target;
@@ -39,11 +40,11 @@ const AddVisa = () => {
       uid, // Add the user's uid to the data being sent
     };
 
-    console.log("Visa Data with UID:", visaData); // For debugging
+    
 
     // Send the data to the backend API
     try {
-      const response = await fetch("http://localhost:4000/addVisa", {
+      const response = await fetch("https://visa-navigator-project.vercel.app/addVisa", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -250,6 +251,7 @@ const AddVisa = () => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

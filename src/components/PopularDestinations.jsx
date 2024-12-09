@@ -2,8 +2,8 @@ import React from "react";
 
 const PopularDestinations = () => {
   return (
-    <section className="py-10">
-      <div className="container mx-auto">
+    <section className="my-20">
+      <div className="container mx-auto px-5">
         <h2 className="text-3xl font-bold text-center mb-6">Popular Destinations</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {/* Destination 1 */}

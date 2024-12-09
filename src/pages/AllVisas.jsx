@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const AllVisas = () => {
   const [visas, setVisas] = useState([]); // State to hold all visas
@@ -9,12 +10,13 @@ const AllVisas = () => {
 
   useEffect(() => {
     // Fetch visas from the server
-    fetch("http://localhost:4000/addVisa")
+    fetch("https://visa-navigator-project.vercel.app/addVisa")
       .then((res) => res.json())
       .then((data) => {
         setVisas(data);
         setFilteredVisas(data); // Set initial data for filtered visas
-      });
+      })
+      .catch((error) => console.error("Error fetching visas:", error));
   }, []);
 
   // Function to handle visa type filtering
@@ -55,7 +57,7 @@ const AllVisas = () => {
         </div>
 
         {/* Visa Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredVisas.map((visa) => (
             <div key={visa._id} className="bg-white shadow-md rounded-lg p-5">
               <img
@@ -76,6 +78,7 @@ const AllVisas = () => {
           ))}
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

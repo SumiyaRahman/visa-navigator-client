@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
 import google from "../assets/Images/google.png";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log("Google Login Successful:", user);
+        
         navigate("/");
 
          // Collect Google user data
@@ -30,7 +31,7 @@ const Login = () => {
             lastSignInTime: user.metadata.lastSignInTime,
           };
           // Save Google user data to MongoDB
-        fetch("http://localhost:4000/users", {
+        fetch("https://visa-navigator-project.vercel.app/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -63,14 +64,14 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log("Email/Password Login Successful:", user);
+        
         navigate("/");
 
         // update last login time
         const lastSignInTime = result?.user?.metadata?.lastSignInTime;
         const loginInfo = {email, lastSignInTime}
 
-        fetch('http://localhost:4000/users', {
+        fetch('https://visa-navigator-project.vercel.app/users', {
             method: 'PATCH',
             headers: {
                 'content-type' : 'application/json'
@@ -164,6 +165,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

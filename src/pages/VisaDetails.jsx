@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import Footer from "../components/Footer";
 
 const VisaDetails = () => {
   const { id } = useParams();
@@ -11,22 +12,34 @@ const VisaDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || "",
-    uid: user?.uid || "", // Include the UID of the logged-in user
+    uid: user?.uid || "",
     firstName: "",
     lastName: "",
-    appliedDate: new Date().toISOString().split("T")[0], // Current date
+    appliedDate: new Date().toISOString().split("T")[0],
     fee: "",
+    visaType: "",
+    countryName: "",
+    processingTime: "",
+    validity: "",
+    applicationMethod: "",
+    countryImg: "",
   });
 
   // Fetch visa details by ID
   useEffect(() => {
-    fetch(`http://localhost:4000/addVisa/${id}`)
+    fetch(`https://visa-navigator-project.vercel.app/addVisa/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setVisa(data);
         setFormData((prevFormData) => ({
           ...prevFormData,
           fee: data.fee,
+          visaType: data.visaType,
+          countryName: data.countryName,
+          processingTime: data.processTime,
+          validity: data.validity,
+          applicationMethod: data.appMethod,
+          countryImg: data.countryImg, // Include countryImg here
         }));
       })
       .catch((error) => console.error("Error fetching visa details:", error));
@@ -43,7 +56,7 @@ const VisaDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/applyVisa", {
+      const response = await fetch("https://visa-navigator-project.vercel.app/applyVisa", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,10 +102,12 @@ const VisaDetails = () => {
             alt={visa.countryName}
             className="w-full max-h-96 object-cover rounded-lg mb-6"
           />
-          <p className="text-lg">{visa.countryName}</p>
-          <p className="text-lg mb-4">Type: {visa.visaType}</p>
-          <p className="text-lg mb-4">Fee: ${visa.fee}</p>
-          <p className="text-lg">{visa.validity}</p>
+          <p className="text-lg mb-2">Country: {visa.countryName}</p>
+          <p className="text-lg mb-2">Visa Type: {visa.visaType}</p>
+          <p className="text-lg mb-2">Processing Time: {visa.processTime}</p>
+          <p className="text-lg mb-2">Fee: ${visa.fee}</p>
+          <p className="text-lg mb-2">Validity: {visa.validity}</p>
+          <p className="text-lg mb-2">Application Method: {visa.appMethod}</p>
           <button
             className="btn mt-5 bg-[#00CC99] text-white"
             onClick={() => setIsModalOpen(true)}
@@ -101,64 +116,119 @@ const VisaDetails = () => {
           </button>
         </div>
       </div>
+      <Footer></Footer>
 
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-2/3">
             <h2 className="text-2xl font-bold mb-4">Apply for the Visa</h2>
             <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  readOnly
-                  className="w-full p-2 border border-gray-300 rounded bg-gray-100"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Email */}
+                <div>
+                  <label className="block text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* First Name */}
+                <div>
+                  <label className="block text-gray-700">First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* Last Name */}
+                <div>
+                  <label className="block text-gray-700">Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* Applied Date */}
+                <div>
+                  <label className="block text-gray-700">Applied Date</label>
+                  <input
+                    type="text"
+                    name="appliedDate"
+                    value={formData.appliedDate}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* Fee */}
+                <div>
+                  <label className="block text-gray-700">Fee</label>
+                  <input
+                    type="number"
+                    name="fee"
+                    value={formData.fee}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* Visa Type */}
+                <div>
+                  <label className="block text-gray-700">Visa Type</label>
+                  <input
+                    type="text"
+                    name="visaType"
+                    value={formData.visaType}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* Processing Time */}
+                <div>
+                  <label className="block text-gray-700">Processing Time</label>
+                  <input
+                    type="text"
+                    name="processingTime"
+                    value={formData.processingTime}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* Validity */}
+                <div>
+                  <label className="block text-gray-700">Validity</label>
+                  <input
+                    type="text"
+                    name="validity"
+                    value={formData.validity}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
+                {/* Application Method */}
+                <div>
+                  <label className="block text-gray-700">
+                    Application Method
+                  </label>
+                  <input
+                    type="text"
+                    name="applicationMethod"
+                    value={formData.applicationMethod}
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded bg-gray-100"
+                  />
+                </div>
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Applied Date</label>
-                <input
-                  type="text"
-                  name="appliedDate"
-                  value={formData.appliedDate}
-                  readOnly
-                  className="w-full p-2 border border-gray-300 rounded bg-gray-100"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Fee</label>
-                <input
-                  type="number"
-                  name="fee"
-                  value={formData.fee}
-                  readOnly
-                  className="w-full p-2 border border-gray-300 rounded bg-gray-100"
-                />
-              </div>
-              <div className="flex justify-end">
+              {/* Submit Buttons */}
+              <div className="flex justify-end mt-6">
                 <button
                   type="submit"
                   className="py-2 px-4 bg-[#00CC99] text-white font-bold rounded-lg"

@@ -1,120 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import usa from '../assets/Images/usa.png'
-import canada from '../assets/Images/canada.png'
-import uk from '../assets/Images/uk.png'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LatestVisas = () => {
+  const [visas, setVisas] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch all visas
+    fetch("https://visa-navigator-project.vercel.app/addVisa")
+      .then((response) => response.json())
+      .then((data) => {
+        // Sort by latest and take only the first 6 visas
+        const latestVisas = data.sort((a, b) => b._id.localeCompare(a._id)).slice(0, 6);
+        setVisas(latestVisas);
+      })
+      .catch((error) => console.error("Failed to fetch visas:", error));
+  }, []);
+
   return (
-    <section className="py-10 px-5 container mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-8">Latest Visas</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Visa Card 1 */}
-        <div className="card bg-base-100 shadow-xl border border-gray-200">
-          <figure>
-            <img
-              src={usa}
-              alt="United States"
-              className="h-52 w-full object-cover rounded-lg p-5"
-            />
-          </figure>
-          <div className="card-body">
-            <h3 className="text-xl font-semibold">United States</h3>
-            <p>
-              <span className="font-bold">Visa Type:</span> Tourist Visa
-            </p>
-            <p>
-              <span className="font-bold">Processing Time:</span> 10-15 Business
-              Days
-            </p>
-            <p>
-              <span className="font-bold">Fee:</span> $160
-            </p>
-            <p>
-              <span className="font-bold">Validity:</span> 6 Months
-            </p>
-            <p>
-              <span className="font-bold">Application Method:</span> Online
-            </p>
-            <div className="card-actions mt-4">
-              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
-            </div>
+    <div className="latest-visas container mx-auto mt-20">
+      <h2 className="text-4xl font-bold mb-4 text-center">Latest Visas</h2>
+      <div className="visa-cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {visas.map((visa) => (
+          <div key={visa._id} className="visa-card border p-4 rounded shadow">
+            <img src={visa.countryImg} alt={visa.countryName} className="w-full h-40 object-cover rounded mb-4" />
+            <h3 className="text-lg font-semibold">{visa.countryName}</h3>
+            <p><strong>Visa Type:</strong> {visa.visaType}</p>
+            <p><strong>Processing Time:</strong> {visa.processTime} days</p>
+            <p><strong>Fee:</strong> ${visa.fee}</p>
+            <p><strong>Validity:</strong> {visa.validity} months</p>
+            <p><strong>Application Method:</strong> {visa.appMethod}</p>
+            <button
+              className="mt-4 bg-[#00CC99] text-white px-4 py-2 rounded"
+              onClick={() => navigate(`/visa-details/${visa._id}`)}
+            >
+              See Details
+            </button>
           </div>
-        </div>
-
-        {/* Visa Card 2 */}
-        <div className="card bg-base-100 shadow-xl border border-gray-200">
-          <figure>
-            <img
-              src={canada}
-              alt="Canada"
-              className="h-52 w-full object-cover rounded-lg p-5"
-            />
-          </figure>
-          <div className="card-body">
-            <h3 className="text-xl font-semibold">Canada</h3>
-            <p>
-              <span className="font-bold">Visa Type:</span> Student Visa
-            </p>
-            <p>
-              <span className="font-bold">Processing Time:</span> 20-30 Business
-              Days
-            </p>
-            <p>
-              <span className="font-bold">Fee:</span> $150
-            </p>
-            <p>
-              <span className="font-bold">Validity:</span> Duration of Study
-              Program
-            </p>
-            <p>
-              <span className="font-bold">Application Method:</span> Online
-            </p>
-            <div className="card-actions mt-4">
-              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
-            </div>
-          </div>
-        </div>
-
-        {/* Visa Card 3 */}
-        <div className="card bg-base-100 shadow-xl border border-gray-200">
-          <figure>
-            <img
-              src={uk}
-              alt="United Kingdom"
-              className="h-52 w-full object-cover rounded-lg p-5"
-            />
-          </figure>
-          <div className="card-body">
-            <h3 className="text-xl font-semibold">United Kingdom</h3>
-            <p>
-              <span className="font-bold">Visa Type:</span> Work Visa
-            </p>
-            <p>
-              <span className="font-bold">Processing Time:</span> 15-20 Business
-              Days
-            </p>
-            <p>
-              <span className="font-bold">Fee:</span> $700
-            </p>
-            <p>
-              <span className="font-bold">Validity:</span> 3 Years
-            </p>
-            <p>
-              <span className="font-bold">Application Method:</span> Online
-            </p>
-            <div className="card-actions mt-4">
-              <button className="btn bg-[#00CC99] text-white w-full">See Details</button>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-
-      {/* "See All Visas" Button */}
-      <div className="text-center mt-8">
-        <Link to='/allVisas' className="btn bg-[#E6EBED] text-[#0F172A]">See All Visas</Link>
-      </div>
-    </section>
+      <button
+        className="mt-6 bg-white text-[#00CC99] px-10 py-5 rounded block mx-auto text-lg font-bold shadow-xl hover:bg-[#00CC99] hover:text-white"
+        onClick={() => navigate("/allVisas")}
+      >
+        See All Visas
+      </button>
+    </div>
   );
 };
 
