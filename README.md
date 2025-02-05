@@ -1,91 +1,90 @@
-# VisaHub
+# Visa Navigator
 
-### A comprehensive Visa Navigator Portal to simplify the process of checking visa requirements, applying for visas, and tracking visa applications.
+## 🌍 About the Project
+Visa Navigator is a user-friendly web application designed to simplify the visa process by allowing users to check visa requirements, apply online, and track applications with ease. The platform offers a seamless experience with authentication, data management, and real-time updates.
 
-## 🚀 [Live Site URL](https://your-live-site-url.com)
+## 🚀 Live Demo
+[Live Site URL](#) *(https://visa-navigator-71a4d.web.app/)*
 
+## ✨ Features
+- 🔍 **Check Visa Requirements** - Browse visa requirements for various countries.
+- 📝 **Apply for Visas** - Submit applications directly through the platform.
+- 🔄 **Track Applications** - Monitor visa application status.
+- 🔐 **User Authentication** - Secure login & registration with Google authentication.
+- 📋 **Manage Visas** - Add, update, and delete visa records.
+- 🎨 **Dark/Light Mode** - Toggle between light and dark themes.
+- 🔎 **Search & Filter** - Easily find visas based on type and country.
+- 📢 **Toasts & Alerts** - Get real-time notifications for actions.
 
+## 🏗️ Tech Stack
+- **Frontend:** React, Tailwind CSS, DaisyUI, React Router, Firebase Auth
+- **Backend:** Node.js, Express.js, MongoDB
+- **Tools & Libraries:** Axios, React Toastify, React Modal, Lottie React, React Simple Typewriter
 
-## 💡 Features of VisaHub:
+## 📌 Installation & Setup
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/SumiyaRahman/visa-navigator.git
+   cd visa-navigator
+   ```
+2. **Install dependencies**
+   ```sh
+   npm install
+   ```
+3. **Setup environment variables**
+   - Create a `.env` file in the root directory.
+   - Add Firebase and MongoDB credentials.
+4. **Start the development server**
+   ```sh
+   npm run dev
+   ```
+5. **Backend Setup**
+   ```sh
+   cd server
+   npm install
+   npm start
+   ```
 
-1. **Comprehensive Visa Management**:
-   - Easily browse visa requirements, application methods, fees, and validity for various countries.
-   - View detailed information about each visa type with clear and concise descriptions.
+## 🔐 Environment Variables
+Create a `.env` file in both frontend and backend directories with:
+```env
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
-2. **User-Friendly Interface**:
-   - Fully responsive design for mobile, tablet, and desktop users.
-   - Dark/Light mode toggle for personalized user experience.
+## 📂 Folder Structure
+```
+visa-navigator/
+│── client/            # Frontend React App
+│── server/            # Backend API (Express.js)
+│── .env               # Environment Variables
+│── README.md          # Documentation
+│── package.json       # Project Metadata
+```
 
-3. **Authentication and Security**:
-   - User authentication using Firebase (Email/Password and Google Login).
-   - Private/protected routes to ensure secure access to user-specific content.
-   - Environment variables to secure sensitive Firebase and MongoDB credentials.
+## 🎯 Core Functionalities
+- **Authentication:** Secure login, registration, Google OAuth
+- **CRUD Operations:** Add, edit, delete, and view visas
+- **Protected Routes:** Secure pages accessible only to logged-in users
+- **API Integration:** Fetch and store data in MongoDB
+- **Responsive Design:** Works seamlessly across devices
 
-4. **Dynamic Features**:
-   - Add, update, delete, and view visas you have added.
-   - Apply for visas and track your applications seamlessly.
-   - Filter visas by type and search through applications using country names.
+## 🔄 API Endpoints
+| Method | Endpoint             | Description |
+|--------|----------------------|-------------|
+| GET    | /api/visas           | Fetch all visas |
+| POST   | /api/visas           | Add a new visa |
+| GET    | /api/visas/:id       | Get visa details |
+| PUT    | /api/visas/:id       | Update visa details |
+| DELETE | /api/visas/:id       | Delete a visa |
 
-5. **Interactive Design**:
-   - Interactive elements like modals for visa applications and updates.
-   - SweetAlert2 notifications for all CRUD operations and important user feedback.
-   - Engaging animations using Lottie React and React Tooltip for tooltips.
+## 🚀 Deployment
+- **Client-Side:** Firebase
+- **Server-Side:** Surge
 
-
-
-## 🛠️ Technologies Used:
-
-1. **Frontend**:
-   - React.js
-   - Tailwind CSS
-   - DaisyUI
-   - Lottie React
-   - React Tooltip
-   - React Router DOM
-
-2. **Backend**:
-   - Node.js
-   - Express.js
-   - MongoDB (Atlas)
-
-3. **Hosting**:
-   - Client: Firebase
-   - Server: Vercel
-
-4. **Authentication**:
-   - Firebase Authentication
-
-5. **Tools**:
-   - GitHub for version control.
-   - SweetAlert2 for notifications.
-
-
-
-## 🌟 Key Features Breakdown:
-
-1. **Home Page**:
-   - Includes a slider with meaningful information, latest visas section, and extra sections.
-   - Fully responsive layout with a creative and unique design.
-
-2. **CRUD Operations**:
-   - Add visas with detailed information (image, visa type, processing time, fee, etc.).
-   - Update and delete your own visas using an intuitive modal.
-
-3. **Authentication**:
-   - Secure login and registration with Firebase Authentication.
-   - Social login using Google for quick access.
-
-4. **All Visas Page**:
-   - View all visas added by all users.
-   - Filter visas by type using a dropdown menu.
-
-5. **My Added Visas Page**:
-   - Private/protected route to manage your added visas.
-   - Update visa information or delete it entirely.
-
-6. **My Visa Applications Page**:
-   - View all visas you’ve applied for.
-   - Search applications by country name using an input field.
-   - Cancel visa applications easily.
-
-
+## 📌 Future Enhancements
+- 📍 Multi-language support
+- 📅 Application status tracking system
+- 🔗 Social media sharing for visas
