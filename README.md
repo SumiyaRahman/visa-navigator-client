@@ -1,5 +1,7 @@
 # Visa Navigator
 
+![Fitness Tracker Banner](https://i.ibb.co/s9Q5JnZz/Screenshot-217.png)
+
 ## 🌍 About the Project
 Visa Navigator is a user-friendly web application designed to simplify the visa process by allowing users to check visa requirements, apply online, and track applications with ease. The platform offers a seamless experience with authentication, data management, and real-time updates.
 
